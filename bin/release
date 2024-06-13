@@ -1,0 +1,6 @@
+#!/bin/sh
+cat <<EOF
+---
+config_vars:
+  GH_CLI_PATH: "/app/.heroku/bin/gh"
+EOF
