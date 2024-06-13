@@ -1,13 +1,17 @@
 #!/bin/sh
 
-# Download GitHub CLI
-curl -L https://github.com/cli/cli/releases/download/v2.50.0/gh_2.50.0_linux_amd64.tar.gz -o gh.tar.gz
+# Assuming $1 is the build directory and $2 is the cache directory
+BUILD_DIR=$1
 
-# Extract the files
-tar -xzf gh.tar.gz
+echo "Downloading and installing GitHub CLI..."
+curl -L https://github.com/cli/cli/releases/download/v2.50.0/gh_2.50.0_linux_amd64.tar.gz -o $BUILD_DIR/gh.tar.gz
 
-# Move `gh` to the bin directory
-mv gh_2.50.0_linux_amd64/bin/gh /app/.heroku/bin/
+tar -xzf $BUILD_DIR/gh.tar.gz -C $BUILD_DIR
 
-# Cleanup
-rm -rf gh_2.50.0_linux_amd64 gh.tar.gz
+mv $BUILD_DIR/gh_2.50.0_linux_amd64/bin/gh /app/.heroku/bin/
+
+rm -rf $BUILD_DIR/gh_2.50.0_linux_amd64
+rm $BUILD_DIR/gh.tar.gz
+
+echo "GitHub CLI installed successfully."
+
