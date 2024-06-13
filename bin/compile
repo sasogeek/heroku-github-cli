@@ -3,15 +3,23 @@
 # Assuming $1 is the build directory and $2 is the cache directory
 BUILD_DIR=$1
 
-echo "Downloading and installing GitHub CLI..."
+echo "Downloading and installing GitHub CLI version 2.50.0..."
 curl -L https://github.com/cli/cli/releases/download/v2.50.0/gh_2.50.0_linux_amd64.tar.gz -o $BUILD_DIR/gh.tar.gz
 
 tar -xzf $BUILD_DIR/gh.tar.gz -C $BUILD_DIR
 
+# Ensure the target directory exists
+mkdir -p /app/.heroku/bin/
+
+# Move the GitHub CLI executable to the bin directory
 mv $BUILD_DIR/gh_2.50.0_linux_amd64/bin/gh /app/.heroku/bin/
 
+# Cleanup
 rm -rf $BUILD_DIR/gh_2.50.0_linux_amd64
 rm $BUILD_DIR/gh.tar.gz
 
-echo "GitHub CLI installed successfully."
+# Update the PATH environment variable
+mkdir -p /app/.profile.d/
+echo "export PATH=\"/app/.heroku/bin:\$PATH\"" > /app/.profile.d/github_cli.sh
 
+echo "GitHub CLI installed successfully."
