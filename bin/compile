@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# Download GitHub CLI
+curl -L https://github.com/cli/cli/releases/download/v2.50.0/gh_2.50.0_linux_amd64.tar.gz -o gh.tar.gz
+
+# Extract the files
+tar -xzf gh.tar.gz
+
+# Move `gh` to the bin directory
+mv gh_2.50.0_linux_amd64/bin/gh /app/.heroku/bin/
+
+# Cleanup
+rm -rf gh_2.50.0_linux_amd64 gh.tar.gz
